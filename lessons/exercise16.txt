@@ -1,0 +1,3 @@
+a
+a
+aanother writelines command
