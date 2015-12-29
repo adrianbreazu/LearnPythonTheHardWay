@@ -1,37 +1,24 @@
 import web
 
+web.config.debug = False
+
 urls = (
-    '/', 'Index',
-    '/hello', 'Hello'
+    "/count", "count",
+    "/reset", "reset"
 )
+app = web.application(urls, locals())
+store = web.session.DiskStore('sessions')
+session = web.session.Session(app, store, initializer={'count': 0})
 
-app = web.application(urls, globals())
-
-render = web.template.render('templates/', base='layout')
-
-
-class Hello(object):
+class count:
     def GET(self):
-        return render.hello_form()
+        session.count += 1
+        return str(session.count)
 
-    def POST(self):
-        form = web.input(name="Nobody", greet="Hello")
-        greeting = "%s, %s" % (form.greet, form.name)
-        return render.hello(greeting = greeting)
-
-    #def GET(self):
-    #    form = web.input(name="Nobody", greet="Hello")
-    #    if form.greet:
-    #        greeting = "%s, %s" % (form.greet, form.name)
-    #        return render.index(greeting = greeting) # run it as http://localhost:8080/hello?name=Frank&greet=Hola
-    #    else:
-    #        return "ERROR: greet is required."
-
-
-class Index(object):
+class reset:
     def GET(self):
-        greeting = "Hello World"
-        return render.index(greeting = greeting)
+        session.kill()
+        return ""
 
 if __name__ == "__main__":
     app.run()
