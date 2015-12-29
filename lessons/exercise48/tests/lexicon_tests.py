@@ -1,5 +1,5 @@
 from nose.tools import *
-from main.exercise48 import lexicon
+from main import lexicon
 
 
 def test_directions():
