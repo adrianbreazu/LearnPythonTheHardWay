@@ -17,7 +17,7 @@ class Hello(object):
     def POST(self):
         form = web.input(name="Nobody", greet="Hello")
         greeting = "%s, %s" % (form.greet, form.name)
-        return render.index(greeting = greeting)
+        return render.hello(greeting = greeting)
 
     #def GET(self):
     #    form = web.input(name="Nobody", greet="Hello")
