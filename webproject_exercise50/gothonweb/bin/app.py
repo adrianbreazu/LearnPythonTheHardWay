@@ -12,12 +12,20 @@ render = web.template.render('templates/')
 
 class Hello(object):
     def GET(self):
+        return render.hello_form()
+
+    def POST(self):
         form = web.input(name="Nobody", greet="Hello")
-        if form.greet:
-            greeting = "%s, %s" % (form.greet, form.name)
-            return render.index(greeting = greeting) # run it as http://localhost:8080/hello?name=Frank&greet=Hola
-        else:
-            return "ERROR: greet is required."
+        greeting = "%s, %s" % (form.greet, form.name)
+        return render.index(greeting = greeting)
+
+    #def GET(self):
+    #    form = web.input(name="Nobody", greet="Hello")
+    #    if form.greet:
+    #        greeting = "%s, %s" % (form.greet, form.name)
+    #        return render.index(greeting = greeting) # run it as http://localhost:8080/hello?name=Frank&greet=Hola
+    #    else:
+    #        return "ERROR: greet is required."
 
 
 class Index(object):
